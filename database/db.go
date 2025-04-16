@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"github.com/maxonbejenari/gin-auth/models"
 	"log"
 
 	"github.com/maxonbejenari/gin-auth/config"
@@ -24,5 +25,10 @@ func ConnectDB() {
 	}
 
 	DB = db
+	err = db.AutoMigrate(&models.User{})
+	if err != nil {
+		log.Fatal("Failed to run migrations")
+	}
+
 	log.Println("Successful connected to Database")
 }
